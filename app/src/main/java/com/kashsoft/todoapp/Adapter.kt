@@ -1,17 +1,23 @@
 package com.kashsoft.todoapp
 
 
+import android.content.Intent
+import android.graphics.Color
+import android.graphics.Color.parseColor
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import androidx.room.Update
 import kotlinx.android.synthetic.main.view.view.*
 
-class Adapter : RecyclerView.Adapter<Adapter.viewHolder>() {
+class Adapter (var data :List<CardInfo>): RecyclerView.Adapter<Adapter.viewHolder>() {
     class viewHolder(itemView: View) :
         RecyclerView.ViewHolder(itemView){
             var title = itemView.title
             var priority  = itemView.priority
+            var layout = itemView.mylayout
+
         }
 
 
@@ -23,11 +29,27 @@ class Adapter : RecyclerView.Adapter<Adapter.viewHolder>() {
     }
 
     override fun onBindViewHolder(holder: viewHolder, position: Int) {
-        TODO("Not yet implemented")
+      when(data[position].prority.toLowerCase())
+      {
+          "high" ->holder.layout.setBackgroundColor(Color.parseColor
+              ("#F05454"))
+          "medium" ->holder.layout.setBackgroundColor(Color.parseColor
+              ("#EDC988"))
+          else -> holder.layout.setBackgroundColor(Color.parseColor
+              ("#EDC988"))
+      }
+
+
+        holder.title.text =data[position].title
+        holder.priority.text= data[position].prority
+        holder.itemView.setOnClickListener{
+             val intent = Intent(holder.itemView.context,UpdateCard::class.java)
+
+        }
     }
 
     override fun getItemCount(): Int {
-        TODO("Not yet implemented")
+   return data.size
     }
 
 }
