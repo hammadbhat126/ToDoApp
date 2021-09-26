@@ -44,6 +44,8 @@ class Adapter (var data :List<CardInfo>): RecyclerView.Adapter<Adapter.viewHolde
         holder.priority.text= data[position].prority
         holder.itemView.setOnClickListener{
              val intent = Intent(holder.itemView.context,UpdateCard::class.java)
+            intent.putExtra( "id",position)
+            holder.itemView.context.startActivity(intent)
 
         }
     }
